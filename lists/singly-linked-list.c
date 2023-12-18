@@ -47,6 +47,12 @@ void printLinkedList() {
     printf("-> End\n");
 }
 
+void deleteStarting() {
+    struct Node* newHead = head->next;
+    free(head);
+    head = newHead;
+}
+
 int main() {
     printf("Initial test...\n");
     addStartNode(15);
@@ -54,6 +60,7 @@ int main() {
     addEndNode(17);
     addStartNode(14);
     printLinkedList();
+    deleteStarting();
     return 0;
 }
 

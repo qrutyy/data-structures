@@ -8,6 +8,7 @@ void test_queue_push(){
     push_queue(test_queue, 54);
     TEST_ASSERT_EQUAL(52, peek_queue_head(test_queue));
     TEST_ASSERT_EQUAL(54, peek_queue_tail(test_queue));
+    free_queue(test_queue);
 }
 
 void test_queue_is_full() {
@@ -19,6 +20,7 @@ void test_queue_is_full() {
     push_queue(test_queue, 58);
     TEST_ASSERT_TRUE(is_queue_full(test_queue));
     TEST_ASSERT_FALSE(is_queue_empty(test_queue));
+    free_queue(test_queue);
 }
 
 void test_queue_isnt_full() {
@@ -29,12 +31,14 @@ void test_queue_isnt_full() {
     push_queue(test_queue, 57);
     TEST_ASSERT_FALSE(is_queue_full(test_queue));
     TEST_ASSERT_FALSE(is_queue_empty(test_queue));
+    free_queue(test_queue);
 }
 
 void test_queue_is_empty() {
     struct Queue* test_queue = create_queue(5);
     TEST_ASSERT_TRUE(is_queue_empty(test_queue));
     TEST_ASSERT_FALSE(is_queue_full(test_queue));
+    free_queue(test_queue);
 }
 
 void test_queue_overflow() {
@@ -50,11 +54,13 @@ void test_queue_overflow() {
     TEST_ASSERT_EQUAL(3123912, peek_queue_head(test_queue));
     TEST_ASSERT_EQUAL(27, peek_queue_tail(test_queue));
     TEST_ASSERT_FALSE(is_queue_full(test_queue));
+    free_queue(test_queue);
 }
 
 void test_queue_removing_from_empty() {
     struct Queue* test_queue = create_queue(5);
     TEST_ASSERT_EQUAL(INT32_MIN, pop_queue(test_queue));
+    free_queue(test_queue);
 }
 
 void test_queue_removing_from_not_empty() {
@@ -68,6 +74,7 @@ void test_queue_removing_from_not_empty() {
     push_queue(test_queue, 8412);
     push_queue(test_queue, 27);
     TEST_ASSERT_EQUAL(3123912, pop_queue(test_queue));
+    free_queue(test_queue);
 }
 
 void test_queue_check_ht_after_removing() {
@@ -88,6 +95,7 @@ void test_queue_check_ht_after_removing() {
     TEST_ASSERT_FALSE(is_queue_full(test_queue));
     TEST_ASSERT_EQUAL(-1, peek_queue_head(test_queue));
     TEST_ASSERT_EQUAL(-1, peek_queue_tail(test_queue));
+    free_queue(test_queue);
 }
 
 void setUp()

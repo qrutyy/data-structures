@@ -18,20 +18,21 @@ LINK=gcc
 DEPEND=gcc -MM -MG -MF
 CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST
 
-RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
+RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT))
 
-PASSED = `grep -s PASS $(PATHR)*.txt`
-FAIL = `grep -s FAIL $(PATHR)*.txt`
-IGNORE = `grep -s IGNORE $(PATHR)*.txt`
+PASSED = `grep -s PASS $(PATHR)*.txt | sed 's/^.*:[^:]*:\([^:]*\):PASS/\1/'`
+FAIL = `grep -s  FAIL $(PATHR)*.txt | sed 's/^.*:[^:]*:\([^:]*\):FAIL/\1/'`
+IGNORE = `grep -s  IGNORE $(PATHR)*.txt | sed 's/^.*:[^:]*:\([^:]*\):IGNORE/\1/'`
 
 test: $(BUILD_PATHS) $(RESULTS)
 	@echo "-----------------------\nIGNORES:\n-----------------------"
 	@echo "$(IGNORE)"
 	@echo "-----------------------\nFAILURES:\n-----------------------"
 	@echo "$(FAIL)"
-	@echo "-----------------------\nPASSED:\n-----------------------"
+	@echo "-----------------------\nPASSED:"
 	@echo "$(PASSED)"
-	@echo "\nDONE"
+	@echo "-----------------------\n"
+	@echo "DONE"
 
 $(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
 	-./$< > $@ 2>&1

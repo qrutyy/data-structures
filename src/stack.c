@@ -11,9 +11,17 @@ struct Stack {
 
 struct Stack* create_stack(uint32_t curr_capacity) {
     struct Stack* new_stack = malloc(sizeof(struct Stack));
+    if (new_stack == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
     new_stack->capacity = curr_capacity;
     new_stack->head = -1;
     new_stack->array = calloc(curr_capacity, sizeof(int32_t));
+    if (new_stack->array == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
     return new_stack;
 }
 
@@ -29,6 +37,10 @@ void push_stack(struct Stack* current_stack, int32_t value) {
     if (is_stack_full(current_stack)) {
         current_stack->capacity *= 2;
         current_stack->array = realloc(current_stack->array, current_stack->capacity);
+        if (current_stack->array == NULL) {
+            fprintf(stderr, "Memory allocation failed\n");
+            exit(EXIT_FAILURE);
+        }
     }
     current_stack->array[++current_stack->head] = value;
 }

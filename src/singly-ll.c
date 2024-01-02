@@ -4,63 +4,66 @@
 
 
 struct Node {
-    uint32_t data;
+    int32_t data;
     struct Node *next;
 };
 
-struct Node* head = NULL;
-
-void addEndNode(uint32_t value) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = value;
-    newNode->next = NULL;
-
-    if (head == NULL) {
-        head = newNode;
+struct Node* create_node(int32_t value) {
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    if (new_node == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
     }
-    else {
-        struct Node* current = head;
-        while (current->next != NULL) {
-            current = current->next;
-        }
-        current->next = newNode;
-    }
+    new_node->next = NULL;
+    new_node->data = value;
+    return new_node;
 }
 
-void addStartNode(uint32_t value) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = value;
-    if (head != NULL) {
-        newNode->next = head;
+void insert_at_end(struct Node** head, int32_t value) {
+    struct Node* new_node = create_node(value);
+    new_node->next = NULL;
+    if (*head == NULL) {
+        *head = new_node;
+        return;
     }
-    head = newNode;
+    struct Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = new_node;
 }
 
-void printLinkedList() {
-    struct Node* current = head;
+void insert_at_beginning(struct Node** head, int32_t value) {
+    struct Node* new_node = create_node(value);
+    new_node->next = *head;
+    *head = new_node;
+}
+
+void printLinkedList(struct Node* head) {
     printf("Printing singly linked list:\nStart ");
-
-    while (current != NULL) {
-        printf("-> %d ", current->data);
-        current = current->next;
+    while (head != NULL) {
+        printf("-> %d ", head->data);
+        head = head->next;
     }
     printf("-> End\n");
 }
 
-void deleteStarting() {
-    struct Node* newHead = head->next;
-    free(head);
-    head = newHead;
+void deleteNode(struct Node** head, int32_t value) {
+    struct Node* temp = *head;
+    struct Node* prev = NULL;
+    if (temp != NULL && temp->data == value) {
+        *head = temp->next;
+        free(temp);
+        return;
+    }
+    while (temp != NULL && temp->data != value) {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (temp == NULL) {
+        printf("Value not found in the list\n");
+        return;
+    }
+    prev->next = temp->next;
+    free(temp);
 }
-
-int main() {
-    printf("Initial test...\n");
-    addStartNode(15);
-    addEndNode(16);
-    addEndNode(17);
-    addStartNode(14);
-    printLinkedList();
-    deleteStarting();
-    return 0;
-}
-

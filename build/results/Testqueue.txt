@@ -1,14 +1,15 @@
 Current queue is empty
 Current queue is empty
 Current queue is empty
-test/Testqueue.c:102:test_add_to_queue:PASS
-test/Testqueue.c:103:test_queue_is_full:PASS
-test/Testqueue.c:104:test_queue_isnt_full:PASS
-test/Testqueue.c:105:test_queue_overflow:PASS
-test/Testqueue.c:106:test_removing_from_empty:PASS
-test/Testqueue.c:107:test_removing_from_not_empty:PASS
-test/Testqueue.c:108:test_check_ht_after_removing:PASS
+test/Testqueue.c:106:test_queue_push:PASS
+test/Testqueue.c:107:test_queue_is_full:PASS
+test/Testqueue.c:108:test_queue_isnt_full:PASS
+test/Testqueue.c:109:test_queue_is_empty:PASS
+test/Testqueue.c:110:test_queue_overflow:PASS
+test/Testqueue.c:111:test_queue_removing_from_empty:PASS
+test/Testqueue.c:70:test_queue_removing_from_not_empty:FAIL: Expected 3123912 Was 31233912
+test/Testqueue.c:113:test_queue_check_ht_after_removing:PASS
 
 -----------------------
-7 Tests 0 Failures 0 Ignored 
-OK
+8 Tests 1 Failures 0 Ignored 
+FAIL

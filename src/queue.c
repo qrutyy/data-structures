@@ -19,16 +19,16 @@ struct Queue* create_queue(uint32_t current_capacity) {
     return new_queue;
 }
 
-bool is_full(struct Queue* current_queue) {
+bool is_queue_full(struct Queue* current_queue) {
     return current_queue->size == current_queue->capacity;
 }
 
-bool is_empty(struct Queue* current_queue) {
+bool is_queue_empty(struct Queue* current_queue) {
     return current_queue->size == 0;
 }
 
-void add_to_queue(struct Queue* current_queue, int32_t value) {
-    if (is_full(current_queue)) {
+void push_queue(struct Queue* current_queue, int32_t value) {
+    if (is_queue_full(current_queue)) {
         current_queue->capacity *= 2;
         current_queue->array = realloc(current_queue->array, current_queue->capacity);
     }
@@ -37,8 +37,8 @@ void add_to_queue(struct Queue* current_queue, int32_t value) {
     current_queue->size++;
 }
 
-int remove_from_queue(struct Queue* current_queue) {
-    if (is_empty(current_queue)) {
+int pop_queue(struct Queue* current_queue) {
+    if (is_queue_empty(current_queue)) {
         fprintf(stderr, "Current queue is empty\n");
         return INT32_MIN;
     }
@@ -48,32 +48,16 @@ int remove_from_queue(struct Queue* current_queue) {
     return value;
 }
 
-void print_head(struct Queue* current_queue) {
-    if (is_empty(current_queue)) {
-        fprintf(stderr, "Current queue is empty\n");
-        return;
-    }
-    printf("Head of queue is: %d\n", current_queue->array[current_queue->head]);
-}
-
-void print_tail(struct Queue* current_queue) {
-    if (is_empty(current_queue)) {
-        fprintf(stderr, "Current queue is empty\n");
-        return;
-    }
-    printf("Tail of queue is: %d\n", current_queue->array[current_queue->tail]);
-}
-
-int32_t return_head(struct Queue* current_queue) {
-    if (is_empty(current_queue)) {
+int32_t peek_queue_head(struct Queue* current_queue) {
+    if (is_queue_empty(current_queue)) {
         fprintf(stderr, "Current queue is empty\n");
         return -1;
     }
     return current_queue->array[current_queue->head];
 }
 
-int32_t return_tail(struct Queue* current_queue) {
-    if (is_empty(current_queue)) {
+int32_t peek_queue_tail(struct Queue* current_queue) {
+    if (is_queue_empty(current_queue)) {
         fprintf(stderr, "Current queue is empty\n");
         return -1;
     }

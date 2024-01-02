@@ -20,6 +20,8 @@ CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST
 
 RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT))
 
+FAILED_TESTS = $(FAIL) $(IGNORE)
+
 PASSED = `grep -s PASS $(PATHR)*.txt | sed 's/^.*:[^:]*:\([^:]*\):PASS/\1/'`
 FAIL = `grep -s  FAIL $(PATHR)*.txt | sed 's/^.*:[^:]*:\([^:]*\):FAIL/\1/'`
 IGNORE = `grep -s  IGNORE $(PATHR)*.txt | sed 's/^.*:[^:]*:\([^:]*\):IGNORE/\1/'`
@@ -30,7 +32,15 @@ test: $(BUILD_PATHS) $(RESULTS)
 	@echo "-----------------------\nFAILURES:\n-----------------------"
 	@echo "$(FAIL)"
 	@echo "-----------------------\nPASSED:"
-	@echo "$(PASSED)"
+	@if [ -z "$(FAIL)" ]; then \
+		echo "All tests from these test files:"; \
+	    for file in $(SRCT); do \
+	        testname=$$(basename $$file); \
+	        echo $$testname; \
+	    done; \
+	else \
+		echo "$(PASSED)"; \
+	fi
 	@echo "-----------------------\n"
 	@echo "DONE"
 

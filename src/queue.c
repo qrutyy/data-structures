@@ -49,7 +49,7 @@ void push_queue(struct Queue* current_queue, int32_t value) {
     current_queue->size++;
 }
 
-int pop_queue(struct Queue* current_queue) {
+int32_t pop_queue(struct Queue* current_queue) {
     if (is_queue_empty(current_queue)) {
         fprintf(stderr, "Current queue is empty\n");
         return INT32_MIN;
@@ -63,7 +63,7 @@ int pop_queue(struct Queue* current_queue) {
 int32_t peek_queue_head(struct Queue* current_queue) {
     if (is_queue_empty(current_queue)) {
         fprintf(stderr, "Current queue is empty\n");
-        return -1;
+        return INT32_MIN;
     }
     return current_queue->array[current_queue->head];
 }
@@ -71,7 +71,7 @@ int32_t peek_queue_head(struct Queue* current_queue) {
 int32_t peek_queue_tail(struct Queue* current_queue) {
     if (is_queue_empty(current_queue)) {
         fprintf(stderr, "Current queue is empty\n");
-        return -1;
+        return INT32_MIN;
     }
     return current_queue->array[current_queue->tail];
 }

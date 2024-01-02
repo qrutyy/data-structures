@@ -45,6 +45,7 @@ void push_slist_beginning(struct Node** head, int32_t value) {
 
 int32_t peek_slist_head(struct Node* head) {
     if (is_slist_empty(head)) {
+        fprintf(stderr, "Current linked list is empty\n");
         return INT32_MIN;
     }
     return head->data;
@@ -52,6 +53,7 @@ int32_t peek_slist_head(struct Node* head) {
 
 int32_t peek_slist_tail(struct Node* head) {
     if (is_slist_empty(head)) {
+        fprintf(stderr, "Current linked list is empty\n");
         return INT32_MIN;
     }
     while (head->next != NULL) {
@@ -63,7 +65,7 @@ int32_t peek_slist_tail(struct Node* head) {
 
 int32_t pop_slist(struct Node** head) {
     if (*head == NULL) {
-        fprintf(stderr, "List is empty. Cannot pop.\n");
+        fprintf(stderr, "Current linked list is empty\n Cannot pop");
         return INT32_MIN;
     }
     struct Node* popped_node = *head;

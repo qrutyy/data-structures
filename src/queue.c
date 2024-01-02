@@ -76,3 +76,6 @@ int32_t peek_queue_tail(struct Queue* current_queue) {
     return current_queue->array[current_queue->tail];
 }
 
+void free_queue(struct Queue* current_queue) {
+    free(current_queue);
+}

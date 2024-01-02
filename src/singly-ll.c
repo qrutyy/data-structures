@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-
+#include <stdbool.h>
 
 struct Node {
     int32_t data;
     struct Node *next;
 };
 
-struct Node* create_node(int32_t value) {
+struct Node* create_slist_node(int32_t value) {
     struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
     if (new_node == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
@@ -19,8 +19,12 @@ struct Node* create_node(int32_t value) {
     return new_node;
 }
 
-void insert_at_end(struct Node** head, int32_t value) {
-    struct Node* new_node = create_node(value);
+bool is_slist_empty(struct Node* head) {
+    return head == NULL;
+}
+
+void push_slist_end(struct Node** head, int32_t value) {
+    struct Node* new_node = create_slist_node(value);
     new_node->next = NULL;
     if (*head == NULL) {
         *head = new_node;
@@ -33,22 +37,44 @@ void insert_at_end(struct Node** head, int32_t value) {
     temp->next = new_node;
 }
 
-void insert_at_beginning(struct Node** head, int32_t value) {
-    struct Node* new_node = create_node(value);
+void push_slist_beginning(struct Node** head, int32_t value) {
+    struct Node* new_node = create_slist_node(value);
     new_node->next = *head;
     *head = new_node;
 }
 
-void printLinkedList(struct Node* head) {
-    printf("Printing singly linked list:\nStart ");
-    while (head != NULL) {
+int32_t peek_slist_head(struct Node* head) {
+    if (is_slist_empty(head)) {
+        return INT32_MIN;
+    }
+    return head->data;
+}
+
+int32_t peek_slist_tail(struct Node* head) {
+    if (is_slist_empty(head)) {
+        return INT32_MIN;
+    }
+    while (head->next != NULL) {
         printf("-> %d ", head->data);
         head = head->next;
     }
-    printf("-> End\n");
+    return head->data;
 }
 
-void deleteNode(struct Node** head, int32_t value) {
+int32_t pop_slist(struct Node** head) {
+    if (*head == NULL) {
+        fprintf(stderr, "List is empty. Cannot pop.\n");
+        return INT32_MIN;
+    }
+    struct Node* popped_node = *head;
+    *head = popped_node->next;
+
+    int popped_data = popped_node->data;
+    free(popped_node); 
+    return popped_data;
+}
+
+void remove_value_slist(struct Node** head, int32_t value) {
     struct Node* temp = *head;
     struct Node* prev = NULL;
     if (temp != NULL && temp->data == value) {
@@ -66,4 +92,24 @@ void deleteNode(struct Node** head, int32_t value) {
     }
     prev->next = temp->next;
     free(temp);
+}
+
+void print_slist(struct Node* head) {
+    printf("Printing singly linked list:\nStart ");
+    while (head != NULL) {
+        printf("-> %d ", head->data);
+        head = head->next;
+    }
+    printf("-> End\n");
+}
+
+void free_slist(struct Node** head) {
+    struct Node* current = *head;
+    struct Node* next;
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    *head = NULL;
 }

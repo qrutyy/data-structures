@@ -60,3 +60,7 @@ int32_t peek_stack(struct Stack* current_stack) {
     }
     return current_stack->array[current_stack->head];
 }
+
+void free_stack(struct Stack* current_stack) {
+    free(current_stack);
+}

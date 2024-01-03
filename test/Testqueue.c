@@ -98,13 +98,11 @@ void test_queue_check_ht_after_removing() {
     free_queue(test_queue);
 }
 
-void setUp()
-{
+void setUp() {
 
 }
 
-void tearDown()
-{
+void tearDown() {
 
 }
 

@@ -68,13 +68,11 @@ void test_stack_removing_from_not_empty() {
     free_stack(test_stack);
 }
 
-void setUp()
-{
+void setUp() {
 
 }
 
-void tearDown()
-{
+void tearDown() {
 
 }
 

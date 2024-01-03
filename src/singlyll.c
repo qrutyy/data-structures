@@ -76,6 +76,8 @@ int32_t pop_slist(struct Node** head) {
     return popped_data;
 }
 
+//function that searches for a value in an entire l-l and the removes it once.
+
 void remove_value_slist(struct Node** head, int32_t value) {
     struct Node* temp = *head;
     struct Node* prev = NULL;

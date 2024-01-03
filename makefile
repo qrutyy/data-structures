@@ -11,6 +11,8 @@ PATHR = build/results/
 
 BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR)
 
+$(shell mkdir -p $(BUILD_PATHS))
+
 SRCT = $(wildcard $(PATHT)*.c)
 
 COMPILE=gcc -c

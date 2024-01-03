@@ -26,4 +26,5 @@
 .AppleDouble
 .LSOverride
 
-
+### Projects folders to ignore
+build/

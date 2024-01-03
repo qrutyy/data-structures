@@ -65,7 +65,7 @@ void test_queue_removing_from_empty() {
 
 void test_queue_removing_from_not_empty() {
     struct Queue* test_queue = create_queue(5);
-    push_queue(test_queue, 31233912);
+    push_queue(test_queue, 3123912);
     push_queue(test_queue, 31923);
     push_queue(test_queue, 5849381);
     push_queue(test_queue, 954);
@@ -93,8 +93,8 @@ void test_queue_check_ht_after_removing() {
     pop_queue(test_queue);
     TEST_ASSERT_TRUE(is_queue_empty(test_queue));
     TEST_ASSERT_FALSE(is_queue_full(test_queue));
-    TEST_ASSERT_EQUAL(-1, peek_queue_head(test_queue));
-    TEST_ASSERT_EQUAL(-1, peek_queue_tail(test_queue));
+    TEST_ASSERT_EQUAL(INT32_MIN, peek_queue_head(test_queue));
+    TEST_ASSERT_EQUAL(INT32_MIN, peek_queue_tail(test_queue));
     free_queue(test_queue);
 }
 

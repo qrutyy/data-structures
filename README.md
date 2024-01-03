@@ -1,11 +1,26 @@
-# Data-structures collection
-This project is made to boost up the coding skill and understanding of data structures.
+# Data-Structure-Q
+DSQ is made to boost up the coding skill and understanding of data structures, including other technologies.
 
-# TODO:
-- add other data-structures(queue, stack, trees, heaps, hash-tables, binary-trees).
-- adding cmake auto testing.
-- add time comparing tests.
-- getting started header.
+At current moment DSQ is a program with implementations of multiple data-structures. These implementations are covered with basic unit-tests (using Unity framework : https://github.com/ThrowTheSwitch/Unityw). 
 
-# Meta-data
+## Getting started
+Set up:
+```bash
+git clone https://github.com/qrutyy/dsq.git
+```
+
+To add Unity as submodule:
+```bash
+git submodule init
+git submodule update
+```
+
+
+To run (temporarily):
+```bash
+make test
+```
+
+## Meta-data
 - created: 08.12.23
+- current version: 1.11.1

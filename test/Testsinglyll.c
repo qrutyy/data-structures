@@ -27,7 +27,7 @@ void test_slist_isnt_empty() {
     free_slist(&head);
 }
 
-void test_remove_value() {
+void test_slist_remove_value() {
     struct Node* head = NULL;
     push_slist_beginning(&head, 38129);
     push_slist_end(&head, 89772);
@@ -56,7 +56,7 @@ int main(void) {
     RUN_TEST(test_slist_push);
     RUN_TEST(test_slist_is_empty);
     RUN_TEST(test_slist_isnt_empty);
-    RUN_TEST(test_remove_value);
+    RUN_TEST(test_slist_remove_value);
     UNITY_END();
 
     return 0;

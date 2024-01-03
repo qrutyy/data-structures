@@ -23,4 +23,4 @@ make test
 
 ## Meta-data
 - created: 08.12.23
-- current version: 1.11.0
+- current version: 1.11.1

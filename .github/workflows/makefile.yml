@@ -1,4 +1,4 @@
-name: Makefile CI
+name: DSQ-test CI
 
 on:
   push:
@@ -8,18 +8,50 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-
+  build_linux:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Initialize submodule
-      run: git submodule init
+      - name: Permission given
+        run: sudo chmod +x config.sh
 
-    - name: Update submodule
-      run: git submodule update
+      - name: Initialize & update submodule
+        run: ./config.sh
 
-    - name: Run tests
-      run: make test
+      - name: Run & parse Test Results
+        run: |
+          output=$(make test)
+          failures=$(echo "$output" | awk '/FAILURES:/,/-----------------------/ { if (! /FAILURES:/) print}')
+          if [ -z "$failures" ]; then
+            echo "Test failures detected:"
+            echo "$failures"
+            exit 1
+          else
+            echo "All tests passed."
+          fi
+
+  build_macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Permission given
+        run: chmod +x config.sh
+
+      - name: Initialize & update submodule
+        run: ./config.sh
+
+      - name: Run & parse Test Results
+        run: |
+          output=$(make test)
+          failures=$(echo "$output" | awk '/FAILURES:/,/-----------------------/ { if (! /FAILURES:/) print}')
+          if [ -z "$failures" ]; then
+            echo "Test failures detected:"
+            echo "$failures" 
+            exit 1
+          else
+            echo "All tests passed."
+          fi

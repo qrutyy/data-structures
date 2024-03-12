@@ -15,11 +15,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Initialize submodule
-      run: git submodule init
+    - name: Initialize & update submodule
+      run: config.sh
 
-    - name: Update submodule
-      run: git submodule update
-
-    - name: Run tests
-      run: make test
+    - name: Run & parse Test Results
+      run: |
+        output=$(make test)
+        failures=$(echo "$output" | sed -n '/FAILURES:/,/-----------------------/p')
+        if [ -n "$failures" ]; then
+          echo "Test failures detected:"
+          echo "$failures" | grep -v "-----------------------"
+          exit 1
+        else
+          echo "All tests passed."
+        fi

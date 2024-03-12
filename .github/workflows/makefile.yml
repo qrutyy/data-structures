@@ -24,7 +24,7 @@ jobs:
         run: |
           output=$(make test)
           failures=$(echo "$output" | awk '/FAILURES:/,/-----------------------/ { if (! /FAILURES:/) print}')
-          if [ -n "$failures" ]; then
+          if [ -z "$failures" ]; then
             echo "Test failures detected:"
             echo "$failures"
             exit 1
@@ -48,9 +48,9 @@ jobs:
         run: |
           output=$(make test)
           failures=$(echo "$output" | awk '/FAILURES:/,/-----------------------/ { if (! /FAILURES:/) print}')
-          if [ -n "$failures" ]; then
+          if [ -z "$failures" ]; then
             echo "Test failures detected:"
-            echo "$failures" | grep -v -- "-----------------------"
+            echo "$failures" 
             exit 1
           else
             echo "All tests passed."

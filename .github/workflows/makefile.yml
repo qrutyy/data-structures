@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Initialize & update submodule
-      run: config.sh
+      run: ./config.sh
 
     - name: Run & parse Test Results
       run: |

@@ -28,7 +28,7 @@ jobs:
         failures=$(echo "$output" | sed -n '/FAILURES:/,/-----------------------/p')
         if [ -n "$failures" ]; then
           echo "Test failures detected:"
-          echo "$failures" | grep -v "-----------------------"
+          echo "$failures" | grep -v -- "-----------------------"
           exit 1
         else
           echo "All tests passed."

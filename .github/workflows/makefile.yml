@@ -23,7 +23,7 @@ jobs:
       - name: Run & parse Test Results
         run: |
           output=$(make test)
-          failures=$(echo "$output" | sed -n '/FAILURES:/,/-----------------------/p')
+          failures=$(echo "$output" | awk '/FAILURES:/,/-----------------------/ { if (! /FAILURES:/) print}')
           if [ -n "$failures" ]; then
             echo "Test failures detected:"
             echo "$failures"
@@ -47,7 +47,7 @@ jobs:
       - name: Run & parse Test Results
         run: |
           output=$(make test)
-          failures=$(echo "$output" | sed -n '/FAILURES:/,/-----------------------/p')
+          failures=$(echo "$output" | awk '/FAILURES:/,/-----------------------/ { if (! /FAILURES:/) print}')
           if [ -n "$failures" ]; then
             echo "Test failures detected:"
             echo "$failures" | grep -v -- "-----------------------"

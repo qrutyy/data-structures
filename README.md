@@ -1,7 +1,7 @@
 # Data-Structure-Q 
 DSQ is made to boost up the coding skill and understanding of data structures, including other technologies.
 
-At current moment DSQ is a program with implementations of multiple data-structures. These implementations are covered with basic unit-tests (using Unity framework : https://github.com/ThrowTheSwitch/Unity). 
+At current moment DSQ is a program with implementations of multiple data-structures. These implementations are covered with basic unit-tests (using Unity framework: [a link](https://github.com/ThrowTheSwitch/Unity).
 
 ## Getting started (local run)
 Set up:

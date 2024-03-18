@@ -8,13 +8,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_linux:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macox-latest]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Permission given
+      - name: Give permission
         run: sudo chmod +x config.sh
 
       - name: Initialize & update submodule
@@ -27,30 +32,6 @@ jobs:
           if [ -z "$failures" ]; then
             echo "Test failures detected:"
             echo "$failures"
-            exit 1
-          else
-            echo "All tests passed."
-          fi
-
-  build_macos:
-    runs-on: macos-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Permission given
-        run: chmod +x config.sh
-
-      - name: Initialize & update submodule
-        run: ./config.sh
-
-      - name: Run & parse Test Results
-        run: |
-          output=$(make test)
-          failures=$(echo "$output" | awk '/FAILURES:/,/-----------------------/ { if (! /FAILURES:/) print}')
-          if [ -z "$failures" ]; then
-            echo "Test failures detected:"
-            echo "$failures" 
             exit 1
           else
             echo "All tests passed."
